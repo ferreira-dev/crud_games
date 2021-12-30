@@ -1,0 +1,10 @@
+
+login funcionando.
+- falta funcionar msg de erro de login;
+
+redirecionar para index.php (contendo cadastro de jogos)
+- criar o crud de jogos
+- criar upload de imagens
+
+depois de tudo funcionando:
+- refatorar código (organização, validações e segurança)
