@@ -1,4 +1,4 @@
-<?php  
+<?php
 
 include_once 'model/Conexao.php';
 include_once 'model/Manager.php';
@@ -6,90 +6,109 @@ include_once 'model/Manager.php';
 $manager = new Manager();
 
 $busca = (isset($_GET['busca'])) ? $_GET['busca'] : '';
-if (empty($busca)){
-	$dados = $manager->listClient(); 
-}else{
-	$dados = $manager->listClient($busca); 
+if (empty($busca)) {
+	$dados = $manager->listClient();
+} else {
+	$dados = $manager->listClient($busca);
 }
 
 
 ?>
 <!DOCTYPE html>
 <html>
+
 <head>
 	<?php include_once 'view/dependencias.php'; ?>
+	<link rel="stylesheet" href="/view/assets/css/index.css">
 </head>
+
 <body>
 
-<div class="container">
-	
-	<h2 class="text-center">
-	Usu <i class="fa fa-list"></i>
-	</h2>
 
-	<h5 class="text-right">
-		<a href="view/page_register.php" class="btn btn-primary btn-xs">
-			<i class="fa fa-user-plus"></i>
-		</a>
-	</h5>
+	<!-- navbar -->
 
-	<div class="table-responsive">
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<div class="container-fluid"> <a class="navbar-brand" href="#">BBBootstrap</a> <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto mb-2 mb-lg-0">
+					<li class="nav-item"> <a class="nav-link active" aria-current="page" href="/view/page_insert.php">Cadastrar</a> </li>
+					<li class="nav-item"> <a class="nav-link" href="#">Sair</a> </li>
+					<!-- <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false"> Shop </a> -->
+						<!-- <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<li><a class="dropdown-item" href="#"></a></li>
+							<li><a class="dropdown-item" href="#"></a></li>
+							<li>
+								<hr class="dropdown-divider">
+							</li>
+							<li><a class="dropdown-item" href="#"></a></li>
+						</ul> -->
+					</li>
+				</ul>
+				<form class="d-flex"> <input class="form-control mr-2" type="search" placeholder="Search" aria-label="Search"> <button class="btn btn-outline-success" type="submit">Search</button> </form>
+			</div>
+		</div>
+	</nav>
+
+	<!-- fim navbar -->
 
 
-	<div class="nav-wrapper">
-        <form method="GET" action="index.php">
-            <div class="active-pink-4 mb-4">
-                <input class="form-control" type="text" id="busca" name="busca" placeholder="Search" aria-label="Search">
-            </div>
-        </form>
-    </div>
+	<div class="container mx-auto mt-4">
+		<div class="row">
+			<div class="col-md-4">
+				<div class="card" style="width: 18rem;">
+					<img src="https://i.imgur.com/ZTkt4I5.jpg" class="card-img-top" alt="...">
+					<div class="card-body">
+						<h5 class="card-title">Card title</h5>
+						<h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+						<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+						<a href="#" class="btn btn-primary mr-2"><i class="fas fa-link"></i> Visit Site</a>
+						<a href="#" class="btn btn-primary"><i class="fab fa-github"></i> Github</a>
+					</div>
+				</div>
+			</div>
 
-
-
-		<table class="table table-hover">
-			<thead class="thead">
-				<tr>
-					<th>ID</th>
-					<th>NOME</th>
-					<th>LOGIN</th>
-					<th colspan="3">AÇÕES</th>
-				</tr>
-			</thead>
-			<tbody>
-				<?php foreach($dados as $client): ?>
-				<tr>
-					<td><?php echo $client['id'] ?></td>
-					<td><?php echo $client['nome']; ?></td>
-					<td><?php echo $client['login']; ?></td>
-					<td>
-						<form method="POST" action="view/page_update.php">
-							
-							<input type="hidden" name="id" value="<?=$client['id']?>">
-
-							<button class="btn btn-warning btn-sm">
-								<i class="fa fa-user-edit"></i>
-							</button>
-
-						</form>
-					</td>
-					<td>
-						<form method="POST" action="controller/delete_client.php" onclick="return confirm('Você tem certeza que deseja excluir ?');">
-							
-							<input type="hidden" name="id" value="<?=$client['id']?>">
-
-							<button class="btn btn-danger btn-sm">
-								<i class="fa fa-trash"></i>
-							</button>
-
-						</form>
-					</td>
-				</tr>
-				<?php endforeach; ?>
-			</tbody>
-		</table>
+			<div class="col-md-4">
+				<div class="card" style="width: 18rem;">
+					<img src="https://i.imgur.com/ZTkt4I5.jpg" class="card-img-top" alt="...">
+					<div class="card-body">
+						<h5 class="card-title">Card title</h5>
+						<h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+						<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+						<a href="#" class="btn mr-2"><i class="fas fa-link"></i> Visit Site</a>
+						<a href="#" class="btn"><i class="fab fa-github"></i> Github</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="card" style="width: 18rem;">
+					<img src="https://i.imgur.com/ZTkt4I5.jpg" class="card-img-top" alt="...">
+					<div class="card-body">
+						<h5 class="card-title">Card title</h5>
+						<h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+						<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+						<a href="#" class="btn mr-2"><i class="fas fa-link"></i> Visit Site</a>
+						<a href="#" class="btn"><i class="fab fa-github"></i> Github</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="card" style="width: 18rem;">
+					<img src="https://i.imgur.com/ZTkt4I5.jpg" class="card-img-top" alt="...">
+					<div class="card-body">
+						<h5 class="card-title">Card title</h5>
+						<h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+						<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+						<a href="#" class="btn mr-2"><i class="fas fa-link"></i> Visit Site</a>
+						<a href="#" class="btn"><i class="fab fa-github"></i> Github</a>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 
-</div>
-
 </body>
+<footer>
+	<p>Desenvolvido Por: Fabricio Ferreira</p>
+</footer>
+
 </html>

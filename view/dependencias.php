@@ -18,23 +18,17 @@
 
 <!-- Folha de Estilo(CSS) - Direta -->
 <style type="text/css">
+	* {
+		font-family: 'Open Sans', sans-serif;
+	}
 
-body {
-	margin-top: 40px;
-	background-color: #ffffff;
-}
+	h2 {
+		font-family: 'Open Sans', sans-serif;
+	}
 
-* {
-	font-family: 'Open Sans', sans-serif;
-}
-
-h2 {
-	font-family: 'Open Sans', sans-serif;
-}
-
-.thead {
-	background-color: #f7f7f7;
-}
-
+	.thead {
+		background-color: #f7f7f7;
+	}
 </style>
 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>

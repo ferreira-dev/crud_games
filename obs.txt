@@ -3,7 +3,9 @@ login funcionando.
 - falta funcionar msg de erro de login;
 
 redirecionar para index.php (contendo cadastro de jogos)
-- criar o crud de jogos
+- criar o crud de jogos X
+    - terminar layout e fazer funcionar X
+    
 - criar upload de imagens - OK
 - organizar código
 
