@@ -5,19 +5,15 @@ logout
 registrar
 inserir jogo
 exibir jogo na index
+excluir jogo
+---------------
 
--falta editar / excluir
-- exibir msg de dados vazios na index
+-falta editar o jogo - X
+- exibir msg de 'nenhum resultado encontrado' na index
 
 
-- falta funcionar msg de erro de login;
-
-redirecionar para index.php (contendo cadastro de jogos)
-- criar o crud de jogos X
-    - terminar layout e fazer funcionar X
-    
-- criar upload de imagens - OK
-- organizar código X
+- falta funcionar msg de erro de login; - X
+- organizar código  - X
 
 
 depois de tudo funcionando:
