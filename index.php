@@ -56,7 +56,7 @@ if (empty($busca)) {
 				</ul>
 			<form method="GET" action="index.php" class="d-flex">
 				<input class="form-control mr-2" type="search" placeholder="Search" aria-label="Search" name="busca"> 
-				<button class="btn btn-outline-success" type="submit" >Buscar</button> 
+				<button class="btn btn-outline-success" type="submit">Buscar</button> 
 			</form>
 			</div>
 		</div>
@@ -82,19 +82,73 @@ if (empty($busca)) {
 						Ano:	<?= $game['ano_pub']?><br>
 						</small>
 						</p>
+						<span hidden id="idGame"><?= $game['id'] ?></span>
 
 						<a href="#" class="btn btn-primary mr-2"><i class="fas fa-link"></i>Editar</a>
-						<a href="#" class="btn btn-primary"><i class="fab fa-github"></i> Excluir</a>
+
+						<a onclick="del('<?= $game['id']; ?>,<?= $game['imagem'] ?>');" class="btn btn-primary" id='excluir'><i class="fab fa-github" ></i> Excluir</a>
 					</div>
 				</div>
 			</div>
 			<?php endforeach; ?>
-
-
 		</div>
 	</div>
 
 </body>
+<script>
+	function del(id, imagem) 
+{
+	console.log('chaamei');
+	$(document).delegate("#excluir", "click", function() {
+
+		
+		Swal.fire({
+			icon: 'warning',
+		  	title: 'Are you sure you want to delete this record?',
+		  	showDenyButton: false,
+		  	showCancelButton: true,
+		  	confirmButtonText: 'Yes'
+		}).then((result) => {
+		  /* Read more about isConfirmed, isDenied below */
+		  if (result.isConfirmed) {
+
+		  	var idGame = id;
+			var idUsuario = <?= $id ?>;
+			var nomeImagem = imagem;
+		  console.log('idgame',idGame);
+		  console.log('idusuario',idUsuario);
+			  
+
+		  	// Ajax config
+			$.ajax({
+		        type: "POST", //we are using GET method to get data from server side
+		        url: 'controller/deleteGame.php', // get the route value
+		        data: {
+					  id: idGame,
+					  id_usuario: idUsuario,
+					  imagem: nomeImagem
+					}, //set data
+		        beforeSend: function () {//We add this before send to disable the button once we submit it so that we prevent the multiple click
+		            
+		        },
+		        success: function (response) {//once the request successfully process to the server side it will return result here
+		            // Reload lists of employees
+	            	
+
+		            Swal.fire('Success.', response, 'success')
+		        }
+		    });
+
+		    
+		  } else if (result.isDenied) {
+		    Swal.fire('Changes are not saved', '', 'info')
+		  }
+		});
+
+		
+	});
+}
+</script>
 <footer>
 	<p>Desenvolvido Por: Fabricio Ferreira</p>
 </footer>

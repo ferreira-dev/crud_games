@@ -134,13 +134,21 @@ class Manager extends Conexao
 		return $statement->fetchAll();
 	}
 
-	public function deleteClient($table, $id)
+	public function deleteGame($table, $id, $imagem, $id_usuario)
 	{
 		$pdo  =  parent::get_instance();
-		$sql  =  "DELETE FROM $table WHERE id  =  :id";
+		$sql  =  "DELETE FROM $table WHERE id  =  :id AND id_usuario = :id_usuario";
 		$statement  =  $pdo->prepare($sql);
-		$statement->bindValue(":id", $id);
+		$statement->bindParam(":id", $id);
+		$statement->bindParam(":id_usuario", $id_usuario);
 		$statement->execute();
+
+
+		//excluir arquivo da pasta
+		unlink("view/assets/imagem/{$imagem}");
+		
+		var_dump($statement);
+		//header('location: ../index.php?teste = ' . $msg);
 	}
 
 	public function buscaUsuario($busca)
