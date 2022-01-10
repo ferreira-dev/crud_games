@@ -19,6 +19,8 @@ session_start();
         unset($_SESSION);
     }
 
+    var_dump( $_FILES);
+
     ?>
 
     <form action="proc_cad_img.php" method="POST" enctype="multipart/form-data">

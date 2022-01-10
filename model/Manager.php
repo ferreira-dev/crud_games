@@ -1,5 +1,6 @@
 <?php
 
+include_once 'Conexao.php';
 class Manager extends Conexao
 {
 
@@ -20,34 +21,22 @@ class Manager extends Conexao
 				$_SESSION["id"]  =  $row['id'];
 				$_SESSION["email"] = $row['email'];
 				$_SESSION["name"] = $row['name'];
-				header("Location: ../view/dashboard.php");
+				header("Location: ../index.php");
 			} else {
 				$msg = "usuário ou senha inválidos";
-				header("Location: ../login.php?error = " . $msg);
+				header("Location: ../view/login.php?error = " . $msg);
 				exit;
 			}
 		} else {
 			$msg = "Preencha os campos";
-			header("Location: ../login.php?error = " . $msg);
+			header("Location: ../view/login.php?error = " . $msg);
 			exit;
 		}
 	}
 
-	public function insertUser($table, $data)
+	public function insertUser($table)
 	{
-		/*
-		$pdo  =  parent::get_instance();
-		$fields  =  implode(", ", array_keys($data));
-		$values  =  ":".implode(", :", array_keys($data));
-		$sql  =  "INSERT INTO $table ($fields) VALUES ($values)";
-		$statement  =  $pdo->prepare($sql);
-		foreach($data as $key   => $value) {
-			$statement->bindValue(":$key", $value, PDO::PARAM_STR);
-		}
-		$statement->execute();
-
-		*/
-
+	
 		$pdo  =  parent::get_instance();
 		$email  =  $_POST['email'];
 		$slt = "select * from user where email = :email";
@@ -58,24 +47,24 @@ class Manager extends Conexao
 
 		if ($query->rowCount() > 0) {
 			$msg = "Ja existe.";
-			header("Location: ../register.php?error = " . $msg);
+			header("Location: ../view/register.php?error = " . $msg);
 			exit;
 		} else {
 			$name   =  $_POST['name'];
 			$password     =  md5($_POST['password']);
 			if (!empty($name) && !empty($email) && !empty($password)) {
-				$sql = "insert into user (name,email,password) values(:name,:email,:password)";
+				$sql = "INSERT INTO user (name,email,password) values(:name,:email,:password)";
 				$query  =  $pdo->prepare($sql);
 				$query->bindParam(':name', $name, PDO::PARAM_STR);
 				$query->bindParam(':email', $email, PDO::PARAM_STR);
 				$query->bindParam(':password', $password, PDO::PARAM_STR);
 				$query->execute();
 				$msg = "Conta criada com sucesso.";
-				header('location: ../login.php?success = ' . $msg);
+				header('location: ../view/login.php?success = ' . $msg);
 				exit;
 			} else {
 				$msg = "Preencha os campos";
-				header("Location: ../register.php?error = " . $msg);
+				header("Location: ../view/register.php?error = " . $msg);
 				exit;
 			}
 		}
@@ -84,16 +73,63 @@ class Manager extends Conexao
 		//
 	}
 
-	public function listClient($filtro  =  false)
+	public function insertGame($table)
+	{
+	
+			$pdo  =  parent::get_instance();
+			$titulo   =  $_POST['titulo'];
+			$ano_pub   =  $_POST['ano_pub'];
+			$imagem = $_FILES['imagem']['name'];
+			$estilo   =  $_POST['estilo'];
+			$desenv_distrib   =  $_POST['desenv_distrib'];
+			$nota   =  $_POST['nota'];
+			$id_usuario   =  $_POST['id_usuario'];
+			
+			if (!empty($_POST) && !empty($_FILES)) {
+				
+				$sql = "INSERT INTO game (titulo,ano_pub,imagem,estilo,desenv_distrib,nota,id_usuario) values(:titulo,:ano_pub,:imagem,:estilo,:desenv_distrib,:nota,:id_usuario)";
+				$query  =  $pdo->prepare($sql);
+				$query->bindParam(':titulo', $titulo, PDO::PARAM_STR);
+				$query->bindParam(':ano_pub', $ano_pub, PDO::PARAM_STR);
+				$query->bindParam(':imagem', $imagem);
+				$query->bindParam(':estilo', $estilo, PDO::PARAM_STR);
+				$query->bindParam(':desenv_distrib', $desenv_distrib, PDO::PARAM_STR);
+				$query->bindParam(':nota', $nota, PDO::PARAM_STR);
+				$query->bindParam(':id_usuario', $id_usuario, PDO::PARAM_STR);
+				$query->execute();
+
+				$diretorio = '../view/assets/imagens/';
+
+				if (!file_exists($diretorio)) {
+					mkdir($diretorio, 0755);
+				}
+
+				if (move_uploaded_file($_FILES['imagem']['tmp_name'], $diretorio . $imagem)) {
+					$_SESSION['msg'] = "<p style='color:green;'>Dados salvo com sucesso e upload da imagem realizado com sucesso</p>";
+					$msg = "Jogo cadastrado com sucesso.";
+					header('location: ../index.php?success = ' . $msg);
+				exit;
+				}
+
+				
+			}
+				$msg = "Preencha os campos";
+				//header("Location: ../index.php?error = " . $msg);
+				exit;
+			
+		}
+
+	public function listGame($id, $filtro = false)
 	{
 		$pdo  =  parent::get_instance();
 		if (!empty($filtro)) {
-			$sql  =  "SELECT * FROM user WHERE `nome`  =  '$filtro';";
+			$sql  =  "SELECT * FROM game WHERE titulo LIKE '%{$filtro}%' AND id_usuario = {$id}; ";
 		} else {
-			$sql  =  "SELECT * FROM user";
+			$sql  =  "SELECT * FROM game WHERE id_usuario = {$id}; ";
 		}
 		$statement  =  $pdo->query($sql);
 		$statement->execute();
+		// criaaar msg de erro ->nao encontrado
 
 		return $statement->fetchAll();
 	}

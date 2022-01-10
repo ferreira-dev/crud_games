@@ -1,14 +1,8 @@
-<?php include_once 'dependencias.php'; ?>
+<?php
+session_start();
+$id = $_SESSION["id"];
 
-<!-- 
-	Título do jogo;
-Ano de publicação;
-Estilo do jogo;
-Desenvolvedora/Distribuidora;
-//
-coluna no banco:
-titulo / ano_pub / estilo / desenv_distrib / nota / id_usuario
- -->
+include_once 'dependencias.php'; ?>
 
 <h2 class="text-center">
 	Cadastro de Jogo <i class="fa fa-plus" aria-hidden="true"></i>
@@ -47,7 +41,8 @@ titulo / ano_pub / estilo / desenv_distrib / nota / id_usuario
 
 			<div class="col-md-12">
 				Imagem: <i class="fa fa-picture-o" aria-hidden="true"></i>
-				<input type="file" class="form-control" type="text" name="address" required><br>
+				<input type="file" class="form-control" name="imagem" required><br>
+				<input type="hidden" class="form-control" name="id_usuario" value="<?= $id ?>"><br>
 			</div>
 
 			<div class="col-md-4">

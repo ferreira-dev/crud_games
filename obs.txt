@@ -1,5 +1,15 @@
 
-login funcionando.
+-- funcionando:
+login
+logout
+registrar
+inserir jogo
+exibir jogo na index
+
+-falta editar / excluir
+- exibir msg de dados vazios na index
+
+
 - falta funcionar msg de erro de login;
 
 redirecionar para index.php (contendo cadastro de jogos)
@@ -7,8 +17,9 @@ redirecionar para index.php (contendo cadastro de jogos)
     - terminar layout e fazer funcionar X
     
 - criar upload de imagens - OK
-- organizar código
+- organizar código X
 
 
 depois de tudo funcionando:
-- refatorar código (organização, validações e segurança)
+- refatorar código (organização, validações, msg de erro e segurança)
+- converter de include para use com namespace
