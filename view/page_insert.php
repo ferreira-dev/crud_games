@@ -15,32 +15,32 @@ include_once 'dependencias.php'; ?>
 		<div class="form-row">
 
 			<div class="col-md-10">
-				Título do Jogo: <i class="fa fa-gamepad" aria-hidden="true"></i>
+			<i class="fa fa-gamepad" aria-hidden="true"></i> Título do Jogo:
 				<input class="form-control" type="text" name="titulo" required autofocus><br>
 			</div>
 
 			<div class="col-md-2">
-				Ano de publicação: <i class="fa fa-calendar-o" aria-hidden="true"></i>
+			<i class="far fa-calendar" aria-hidden="true"></i> Ano de publicação:
 				<input class="form-control" type="number" name="ano_pub" required><br>
 			</div>
 
 			<div class="col-md-4">
-				Estilo do Jogo: <i class="fa fa-lightbulb-o" aria-hidden="true"></i>
+			<i class="fas fa-dice" aria-hidden="true"></i> Estilo do Jogo:
 				<input class="form-control" type="text" name="estilo" required><br>
 			</div>
 
 			<div class="col-md-6">
-				Desenvolvedora / Distribuidora: <i class="fa fa-industry" aria-hidden="true"></i>
+			<i class="fa fa-industry" aria-hidden="true"></i> Desenvolvedora / Distribuidora: 
 				<input class="form-control" type="text" name="desenv_distrib" required><br>
 			</div>
 
 			<div class="col-md-2">
-				Nota: <i class="fa fa-star-o" aria-hidden="true"></i>
+			<i class="fas fa-star" aria-hidden="true"></i> Nota:
 				<input class="form-control" type="number" name="nota" required><br>
 			</div>
 
 			<div class="col-md-12">
-				Imagem: <i class="fa fa-picture-o" aria-hidden="true"></i>
+			<i class="fas fa-images"></i> Imagem:
 				<input type="file" class="form-control" name="imagem" required><br>
 				<input type="hidden" class="form-control" name="id_usuario" value="<?= $id ?>"><br>
 			</div>

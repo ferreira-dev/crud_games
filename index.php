@@ -58,26 +58,28 @@ if (empty($busca)) {
 	<div class="container mx-auto mt-4">
 		<div class="row">
 			<?php foreach ($dados as $game) : ?>
+				<div class="col">
 
-				<div class="col-md-4">
-					<div class="card" style="width: 18rem;">
-						<img src="view/assets/imagens/<?= $game['imagem'] ?>" class="card-img-top" alt="...">
-						<div class="card-body">
+					<div class="col-md-4">
+						<div class="card" style="width: 18rem;">
+							<img src="view/assets/imagens/<?= $game['imagem'] ?>" class="fix-img" width="">
+							<div class="card-body">
 
-							<h5 class="card-title"><?= $game['titulo'] ?></h5>
-							<h6 class="card-subtitle mb-2 text-muted">Nota: <?= $game['nota'] ?></h6>
-							<p class="card-text">
+								<h5 class="card-title"><?= $game['titulo'] ?></h5>
+								<h6 class="card-subtitle mb-2 text-muted">Nota: <?= $game['nota'] ?></h6>
+								<p class="card-text">
 
-								<small>Estilo: <?= $game['estilo'] ?><br>
-									Desenv. /Distribuidora: <?= $game['desenv_distrib'] ?><br>
-									Ano: <?= $game['ano_pub'] ?><br>
-								</small>
-							</p>
-							<span hidden id="idGame"><?= $game['id'] ?></span>
+									<small>Estilo: <?= $game['estilo'] ?><br>
+										Desenv. /Distribuidora: <?= $game['desenv_distrib'] ?><br>
+										Ano: <?= $game['ano_pub'] ?><br>
+									</small>
+								</p>
+								<span hidden id="idGame"><?= $game['id'] ?></span>
 
-							<a href="#" class="btn btn-primary mr-2"><i class="fas fa-link"></i>Editar</a>
+								<a href="#" class="btn btn-primary mr-2"><i class="fas fa-pen" aria-hidden="true"></i> Editar</a>
 
-							<a onclick="del('<?= $game['id']; ?>','<?= $game['imagem'] ?>');" class="btn btn-primary" id='excluir'><i class="fab fa-github"></i> Excluir</a>
+								<a onclick="del('<?= $game['id']; ?>','<?= $game['imagem'] ?>');" class="btn btn-primary" id='excluir'><i class="fa fa-trash" aria-hidden="true"></i> Excluir</a>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -88,16 +90,16 @@ if (empty($busca)) {
 </body>
 <script>
 	function del(id_game, imagem) {
-		console.log('chaamei');
 		$(document).delegate("#excluir", "click", function() {
-
 
 			Swal.fire({
 				icon: 'warning',
-				title: 'Are you sure you want to delete this record?',
+				title: 'Deseja excluir esse jogo?',
 				showDenyButton: false,
 				showCancelButton: true,
-				confirmButtonText: 'Yes'
+				confirmButtonColor: '#DD6B55',
+				confirmButtonText: 'Sim',
+				cancelButtonText: "Cancelar"
 			}).then((result) => {
 				if (result.isConfirmed) {
 
@@ -108,7 +110,6 @@ if (empty($busca)) {
 					console.log('idusuario	', idUsuario);
 					console.log('nomeimagem	', imagem);
 
-					// Ajax 
 					$.ajax({
 						type: "POST",
 						url: 'controller/deleteGame.php',
@@ -116,19 +117,15 @@ if (empty($busca)) {
 							id: idGame,
 							id_usuario: idUsuario,
 							imagem: nomeImagem
-						}, //set data
-						beforeSend: function() {
-							//
 						},
+
 						success: function(response) {
 
-							Swal.fire('Success.', response, 'success')
+							// Swal.fire('Successo.', response, 'success')
+							location.reload();
 						}
 					});
 
-
-				} else if (result.isDenied) {
-					Swal.fire('Changes are not saved', '', 'info')
 				}
 			});
 
