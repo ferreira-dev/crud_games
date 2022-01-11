@@ -6,16 +6,14 @@ registrar
 inserir jogo
 exibir jogo na index
 excluir jogo
+edita jogo
+- exibir msg de 'nenhum resultado encontrado' na index
 ---------------
 
--falta editar o jogo - X
-- exibir msg de 'nenhum resultado encontrado' na index
-
-
-- falta funcionar msg de erro de login; - X
+- verificar se ta deletando imagem da pasta ao excluir jogo
+- exportar banco
 - organizar código  - X
 
 
 depois de tudo funcionando:
-- refatorar código (organização, validações, msg de erro e segurança)
-- converter de include para use com namespace
+- refatorar código (organização, validações)

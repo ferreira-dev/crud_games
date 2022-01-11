@@ -11,7 +11,7 @@ class Manager extends Conexao
 		if (!empty($email) && !empty($password)) {
 
 			$pdo = parent::get_instance();
-			$slt = "select * from user where email = :email and password = :password";
+			$slt = "SELECT * FROM user WHERE email = :email AND password = :password";
 			$query =  $pdo->prepare($slt);
 			$query->bindParam(':email', $email, PDO::PARAM_STR);
 			$query->bindParam(':password', $password, PDO::PARAM_STR);
@@ -23,18 +23,18 @@ class Manager extends Conexao
 				$_SESSION["name"] = $row['name'];
 				header("Location: ../index.php");
 			} else {
-				$msg = "usuário ou senha inválidos";
-				header("Location: ../view/login.php?error = " . $msg);
+				$_SESSION['error'] = "usuário ou senha inválidos";
+				header("Location: ../view/login.php");
 				exit;
 			}
 		} else {
-			$msg = "Preencha os campos";
-			header("Location: ../view/login.php?error = " . $msg);
+			$_SESSION['error'] = "Preencha os campos";
+			header("Location: ../view/login.php");
 			exit;
 		}
 	}
 
-	public function insertUser($table)
+	public function insertUser()
 	{
 
 		$pdo  =  parent::get_instance();
@@ -43,11 +43,11 @@ class Manager extends Conexao
 		$query =  $pdo->prepare($slt);
 		$query->bindParam(':email', $email, PDO::PARAM_STR);
 		$query->execute();
-		$row = $query->fetch(PDO::FETCH_ASSOC);
+		$query->fetch(PDO::FETCH_ASSOC);
 
 		if ($query->rowCount() > 0) {
-			$msg = "Ja existe.";
-			header("Location: ../view/register.php?error = " . $msg);
+			$_SESSION['error'] = "Ja existe um usuário com esse email cadastrado.";
+			header("Location: ../view/register.php");
 			exit;
 		} else {
 			$name   =  $_POST['name'];
@@ -59,12 +59,12 @@ class Manager extends Conexao
 				$query->bindParam(':email', $email, PDO::PARAM_STR);
 				$query->bindParam(':password', $password, PDO::PARAM_STR);
 				$query->execute();
-				$msg = "Conta criada com sucesso.";
-				header('location: ../view/login.php?success = ' . $msg);
+				$_SESSION['success'] = "Conta criada com sucesso.";
+				header('location: ../view/login.php');
 				exit;
 			} else {
-				$msg = "Preencha os campos";
-				header("Location: ../view/register.php?error = " . $msg);
+				$_SESSION['error'] = "Preencha os campos";
+				header("Location: ../view/register.php");
 				exit;
 			}
 		}
@@ -73,9 +73,8 @@ class Manager extends Conexao
 		//
 	}
 
-	public function insertGame($table)
+	public function insertGame()
 	{
-
 		$pdo  =  parent::get_instance();
 		$titulo   =  $_POST['titulo'];
 		$ano_pub   =  $_POST['ano_pub'];
@@ -105,14 +104,11 @@ class Manager extends Conexao
 			}
 
 			if (move_uploaded_file($_FILES['imagem']['tmp_name'], $diretorio . $imagem)) {
-				$_SESSION['msg'] = "<p style='color:green;'>Dados salvo com sucesso e upload da imagem realizado com sucesso</p>";
-				$msg = "Jogo cadastrado com sucesso.";
-				header('location: ../index.php?success = ' . $msg);
+				header('location: ../index.php');
 				exit;
 			}
 		}
-		$msg = "Preencha os campos";
-		//header("Location: ../index.php?error = " . $msg);
+
 		exit;
 	}
 
@@ -141,7 +137,7 @@ class Manager extends Conexao
 		$statement->execute();
 
 		$caminho = $_SERVER['DOCUMENT_ROOT'];
-		unlink(BASE_PATH. "/view/assets/imagens/{$imagem}"); // melhorar depois
+		unlink("{$caminho}/view/assets/imagens/{$imagem}");
 		header('location: ../index.php');
 	}
 
@@ -166,7 +162,7 @@ class Manager extends Conexao
 		return $statement->fetchAll();
 	}
 
-	public function updateClient($table, $data, $id)
+	public function updateGame($table, $data, $id)
 	{
 		$pdo  =  parent::get_instance();
 		$new_values  =  "";
@@ -180,5 +176,14 @@ class Manager extends Conexao
 			$statement->bindValue(":$key", $value, PDO::PARAM_STR);
 		}
 		$statement->execute();
+
+		$diretorio = '../view/assets/imagens/';
+		$imagem = $data['imagem'];
+
+		if (move_uploaded_file($_FILES['imagem']['tmp_name'], $diretorio . $imagem)) {
+			$_SESSION['msg'] = "<p style='color:green;'>Dados salvo com sucesso e upload da imagem realizado com sucesso</p>";
+			header('location: ../index.php');
+			exit;
+		}
 	}
 }

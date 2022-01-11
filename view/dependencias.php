@@ -26,9 +26,6 @@
 		font-family: 'Open Sans', sans-serif;
 	}
 
-	.thead {
-		background-color: #f7f7f7;
-	}
 </style>
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
