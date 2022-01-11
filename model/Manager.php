@@ -141,7 +141,7 @@ class Manager extends Conexao
 		$statement->execute();
 
 		$caminho = $_SERVER['DOCUMENT_ROOT'];
-		unlink("{$caminho}/view/assets/imagens/{$imagem}"); // melhorar depois
+		unlink(BASE_PATH. "/view/assets/imagens/{$imagem}"); // melhorar depois
 		header('location: ../index.php');
 	}
 

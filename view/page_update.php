@@ -1,65 +1,66 @@
 <?php 
 
-include_once '../model/Conexao.php';
+var_dump($_POST);
+exit;
+
 include_once '../model/Manager.php';
 include_once 'dependencias.php'; 
 
 $manager = new Manager();
 
-$id = $_POST['id'];
+$idUsuario = $_POST['idUsuario'];
+$idGame = $_POST['idGame'];
 
 ?>
 
 <h2 class="text-center">
-	Page of Update <i class="fa fa-user-edit"></i>
+	Editar Registro <i class="fa fa-user-edit"></i>
 </h2><hr>
 
-<form method="POST" action="../controller/update_client.php">
+<form method="POST" action="../controller/updateGame.php" enctype="multipart/form-data">
 	
 <div class="container">
 	<div class="form-row">
 		
-		<?php foreach($manager->getInfo("registros", $id) as $client_info): ?>
+		<?php foreach($manager->getInfo("game", $idUsuario, $idGame) as $game_info): ?>
 
 		<div class="col-md-6">
-			Nome: <i class="fa fa-user"></i>
-			<input class="form-control" type="text" name="name" required autofocus value="<?=$client_info['name']?>"><br>
+			Título: 
+			<input class="form-control" type="text" name="titulo" required autofocus value="<?=$game_info['titulo']?>"><br>
 		</div>
 
 		<div class="col-md-6">
-			E-mail: <i class="fa fa-envelope"></i>
-			<input class="form-control" type="email" name="email" required value="<?=$client_info['email']?>"><br>
+			Ano de Publicação: 
+			<input class="form-control" type="number" name="ano_pub" required value="<?=$game_info['ano_pub']?>"><br>
 		</div>
 
 		<div class="col-md-4">
-			CPF: <i class="fa fa-address-card"></i>
-			<input class="form-control" type="text" name="cpf" required id="cpf" value="<?=$client_info['cpf']?>"><br>
+			Estilo: 
+			<input class="form-control" type="text" name="estilo" required value="<?=$game_info['estilo']?>"><br>
 		</div>
 
 		<div class="col-md-4">
-			Dt. de Nascimento: <i class="fa fa-calendar"></i>
-			<input class="form-control" type="date" name="birth" required value="<?=$client_info['birth']?>"><br>
+			Desenv. / Distrib.:
+			<input class="form-control" type="text" name="desenv_distrib" required value="<?=$game_info['desenv_distrib']?>"><br>
 		</div>
 
 		<div class="col-md-4">
-			Telefone: <i class="fab fa-whatsapp"></i>
-			<input class="form-control" type="text" name="phone" required id="phone" value="<?=$client_info['phone']?>"><br>
+			Nota:
+			<input class="form-control" type="number" name="nota" required value="<?=$game_info['nota']?>"><br>
 		</div>
 
 		<div class="col-md-12">
-			Endereço: <i class="fa fa-map"></i>
-			<input class="form-control" type="text" name="address" required value="<?=$client_info['address']?>"><br>
+			Imagem: <i class="fa fa-map"></i>
+			<input class="form-control" type="file" name="imagem" required><br>
 		</div>
 
 		<div class="col-md-4">
-			
-			<input type="hidden" name="id" value="<?=$client_info['id']?>">
 
 			<?php endforeach; ?>
 
 			<button class="btn btn-warning btn-lg">
 				
-				Update Client <i class="fa fa-user-edit"></i>
+				Atualizar <i class="fa fa-user-edit"></i>
 
 			</button>
 			<a class="btn btn-success btn-lg" href="../index.php">
